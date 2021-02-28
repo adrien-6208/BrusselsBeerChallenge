@@ -3,14 +3,14 @@ const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 
-const UserSchema = require('./components/User.js');
-const BrewerySchema = require('./components/Brewery.js');
-const BeerSchema = require('./components/Beer.js');
+const UserSchema = require('./models/User.js');
+const BrewerySchema = require('./models/Brewery.js');
+const BeerSchema = require('./models/Beer.js');
 const initialiseData = require('./data/data.js');
 
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 const PROJECT_NAME = 'Brussels Beer Challenge';
-const adapterConfig = { mongoUri: 'mongodb://localhost/todo-list' };
+const adapterConfig = { mongoUri: 'mongodb://localhost/brusselsbeerchallenge' };
 
 const keystone = new Keystone({
     adapter: new Adapter(adapterConfig),
