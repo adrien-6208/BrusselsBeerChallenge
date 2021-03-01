@@ -6,6 +6,7 @@ const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const UserSchema = require('./models/User.js');
 const BrewerySchema = require('./models/Brewery.js');
 const BeerSchema = require('./models/Beer.js');
+const MedalSchema = require('./models/Medal.js');
 const initialiseData = require('./data/data.js');
 
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
@@ -19,6 +20,7 @@ const keystone = new Keystone({
 
 keystone.createList('User', UserSchema);
 keystone.createList('Brewery', BrewerySchema);
+keystone.createList('Medal', MedalSchema);
 keystone.createList('Beer', BeerSchema);
 
 const authStrategy = keystone.createAuthStrategy({

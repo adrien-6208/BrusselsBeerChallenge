@@ -26,5 +26,9 @@ module.exports = {
             ref: 'Brewery.beer',
             isRequired: true,
         },
+        medal: {
+            type: Relationship,
+            ref: 'Medal.beer'
+        },
     },
 };

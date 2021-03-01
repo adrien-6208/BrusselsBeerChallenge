@@ -68,22 +68,56 @@ module.exports = async keystone => {
             },
             {
                 data : {
-                    name : 'Heineken',
-                    phone : '+31 2244 51 43',
-                    email : '',
-                    website : 'http://www.amstel.nl',
-                    address : 'Burg. Smeetsweg 1, 2382 PH Zoeterwoude',
-                    country : 'Pays-Bas'
+                    name : 'Brasserie Caulier SPRL',
+                    phone : '+32 472 89 71 42',
+                    email : 'info@brasseriecaulier.com',
+                    website : 'https://brasseriecaulier.beer/',
+                    address : 'Rue de Sondeville, 7600 Péruwelz',
+                    country : 'Belgique'
                 },
             },
             {
                 data : {
-                    name : 'Cervejaria Colorado',
-                    phone : '+55 1 99 92 59 91 17',
-                    email : '',
-                    website : 'http://www.cervejariacolorado.com.br',
-                    address : 'Anhanguera s/n Km 308 + 300m, 14093500 Ribeirão Preto',
-                    country : 'Brésil'
+                    name : 'Brasserie Grain d’Orge',
+                    phone : '+32 87 78 77 84',
+                    email : 'info@brasseriegraindorge.com',
+                    website : 'http://www.brasserie-graindorge.be',
+                    address : 'Rue Laschet 3, 4852 Hombourg-Plombières',
+                    country : 'Belgique'
+                },
+            },
+            {
+                data : {
+                    name : 'Brasserie de Brunehaut',
+                    phone : '+32 69 34 64 11',
+                    email : 'info@brunehaut.com',
+                    website : 'https://www.brunehaut.com',
+                    address : 'Rue des Panneries 17, 7623 Rongy-Brunehaut',
+                    country : 'Belgique'
+                },
+            },
+        ],
+
+        returnFields: 'id, name',
+    });
+
+    const medals = await createItems({
+        keystone,
+        listKey: 'Medal',
+        items: [
+            {
+                data : {
+                    name : 'Médaille d\'or',
+                },
+            },
+            {
+                data : {
+                    name : 'Médaille d\'argent',
+                },
+            },
+            {
+                data : {
+                    name : 'Médaille de bronze',
                 },
             },
         ],
@@ -106,6 +140,9 @@ module.exports = async keystone => {
                     brewery: {
                         connect: { id: breweries.find(brewery => brewery.name === 'Brasserie 28').id },
                     },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'or').id },
+                    },
                 },
             },
             {
@@ -118,6 +155,9 @@ module.exports = async keystone => {
                     original_gravity : '16,00',
                     brewery: {
                         connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Dupont').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'argent').id },
                     },
                 },
             },
@@ -132,57 +172,120 @@ module.exports = async keystone => {
                     brewery: {
                         connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Dupont').id },
                     },
-                },
-            },
-            {
-                data : {
-                    name : 'COLORADO RIBEIRÃO LAGER',
-                    alcohol : '4,5',
-                    bitterness : '20',
-                    bottle_content : '60cl',
-                    final_gravity : '2,40',
-                    original_gravity : '10,70',
-                    brewery: {
-                        connect: { id: breweries.find(brewery => brewery.name === 'Cervejaria Colorado').id },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille de bronze').id },
                     },
                 },
             },
             {
                 data : {
-                    name : 'COLORADO DOUBLE BROWN COCONUT',
+                    name : 'MOINETTE BLONDE',
+                    alcohol : '8,5',
+                    bitterness : '32',
+                    bottle_content : '75cl',
+                    final_gravity : '0,80',
+                    original_gravity : '16,50',
+                    brewery: {
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Dupont').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'or').id },
+                    },
+                },
+            },
+            {
+                data : {
+                    name : 'PAIX DIEU',
+                    alcohol : '10,00',
+                    bitterness : '20',
+                    bottle_content : '33cl',
+                    final_gravity : '2.00',
+                    original_gravity : '20,00',
+                    brewery: {
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Caulier SPRL').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'argent').id },
+                    },
+                },
+            },
+            {
+                data : {
+                    name : 'PAIX DIEU',
+                    alcohol : '10,00',
+                    bitterness : '20',
+                    bottle_content : '33cl',
+                    final_gravity : '2.00',
+                    original_gravity : '20,00',
+                    brewery: {
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Caulier SPRL').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille de bronze').id },
+                    },
+                },
+            },
+            {
+                data : {
+                    name : 'BON SECOURS BLONDE',
+                    alcohol : '8,00',
+                    bitterness : '20',
+                    bottle_content : '33cl',
+                    final_gravity : '0',
+                    original_gravity : '14,00',
+                    brewery: {
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Caulier SPRL').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'or').id },
+                    },
+                },
+            },
+            {
+                data : {
+                    name : 'AUBEL PURE',
+                    alcohol : '5,00',
+                    bitterness : '40',
+                    bottle_content : '33cl',
+                    final_gravity : '2.60',
+                    original_gravity : '11,50',
+                    brewery: {
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Grain d’Orge').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'argent').id },
+                    },
+                },
+            },
+            {
+                data : {
+                    name : 'JOUP',
+                    alcohol : '6,8',
+                    bitterness : '20',
+                    bottle_content : '33cl',
+                    final_gravity : '3,70',
+                    original_gravity : '15,40',
+                    brewery: {
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Grain d’Orge').id },
+                    },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille de bronze').id },
+                    },
+                },
+            },
+            {
+                data : {
+                    name : 'BRUNEHAUT TRIPLE',
                     alcohol : '8,0',
                     bitterness : '30',
-                    bottle_content : '60cl',
-                    final_gravity : '3,50',
-                    original_gravity : '18,20',
+                    bottle_content : '33cl',
+                    final_gravity : '2,80',
+                    original_gravity : '16,90',
                     brewery: {
-                        connect: { id: breweries.find(brewery => brewery.name === 'Cervejaria Colorado').id },
+                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie de Brunehaut').id },
                     },
-                },
-            },
-            {   
-                data : {
-                    name : 'COLORADO BLACK INDICA',
-                    alcohol : '7,0',
-                    bitterness : '45',
-                    bottle_content : '60cl',
-                    final_gravity : '3,50',
-                    original_gravity : '16,30',
-                    brewery: {
-                        connect: { id: breweries.find(brewery => brewery.name === 'Cervejaria Colorado').id },
-                    },
-                },
-            },
-            {
-                data : {
-                    name : 'AMSTEL 0.0',
-                    alcohol : '0,0',
-                    bitterness : '21',
-                    bottle_content : '30cl',
-                    final_gravity : '6,20',
-                    original_gravity : '6,20',
-                    brewery: {
-                        connect: { id: breweries.find(brewery => brewery.name === 'Heineken').id },
+                    medal: {
+                        connect: { id: medals.find(medal => medal.name === 'Médaille d\'or').id },
                     },
                 },
             },
