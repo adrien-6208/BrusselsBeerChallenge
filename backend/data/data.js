@@ -211,22 +211,6 @@ module.exports = async keystone => {
             },
             {
                 data : {
-                    name : 'PAIX DIEU',
-                    alcohol : '10,00',
-                    bitterness : '20',
-                    bottle_content : '33cl',
-                    final_gravity : '2.00',
-                    original_gravity : '20,00',
-                    brewery: {
-                        connect: { id: breweries.find(brewery => brewery.name === 'Brasserie Caulier SPRL').id },
-                    },
-                    medal: {
-                        connect: { id: medals.find(medal => medal.name === 'Médaille de bronze').id },
-                    },
-                },
-            },
-            {
-                data : {
                     name : 'BON SECOURS BLONDE',
                     alcohol : '8,00',
                     bitterness : '20',
