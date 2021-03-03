@@ -20,7 +20,7 @@ const Breweries = props => {
   ));
 
   return (
-    <select onChange={event => props.onChange(event.target.value)} prompt="Nom">
+    <select className="form-control mb-2" onChange={event => props.onChange(event.target.value)} prompt="Nom">
         <option value="all">Nom de la brasserie</option>
       {breweries}
     </select>

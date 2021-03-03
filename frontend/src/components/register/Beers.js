@@ -1,7 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import Beer from './Beer';
 
-function Beers(idBrewery) {
+function Beers(params) {
   const GET_BEERS = gql`
     query GetBeers {
       allBeers {
@@ -9,6 +9,10 @@ function Beers(idBrewery) {
         name
         alcohol
         brewery {
+          id
+          name
+        }
+        medal {
           id
           name
         }
@@ -21,14 +25,30 @@ function Beers(idBrewery) {
   if (loading) return <p>Loading...</p>;
   if (error) return <pre>Error : {error.message}</pre>;
 
-  // TODO : retirer bootstrap-react
-  // TODO : Ajouter le filtre medal et beer name
   // TODO : cogiter au multilingue
   // TODO : Ajouter les catégories de récompense
   // TODO : Ajouter le choix de trier par desc ou asc
   
-  function filterByParams(beer, idBrewery, medal){
-    return beer.brewery.id == idBrewery.idBrewery;
+  function filterByParams(beer, params){
+    if(params.idBrewery != 'all') {
+      if(beer.brewery.id != params.idBrewery) {
+        return false;
+      }
+    }
+    
+    if(params.idMedal != 'all') {
+      if(beer.medal.id != params.idMedal) {
+        return false;
+      }
+    }
+
+    if(params.nameBeer != '') {
+      if(!beer.name.toLowerCase().includes(params.nameBeer)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   function sortBy(a, b) {
@@ -38,7 +58,7 @@ function Beers(idBrewery) {
     return 1;
   }
 
-  const beers = data.allBeers.filter((beer) => filterByParams(beer, idBrewery)).sort(sortBy).map( (filteredBeer)=>( 
+  const beers = data.allBeers.filter((beer) => filterByParams(beer, params)).sort(sortBy).map( (filteredBeer)=>( 
     <Beer dataBeer={filteredBeer} />
   ));
 
