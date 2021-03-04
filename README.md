@@ -15,3 +15,4 @@
 * `npm install`
 * Dupliquer et renommer le fichie config.sample.js en config.js
 * `npm start`
+* Il vous demandera vu que `localhost:3000` est utiliser de switch sur le `localhost:3001` répondre `yes`
