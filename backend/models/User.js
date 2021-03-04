@@ -1,15 +1,16 @@
-const { Text, Checkbox, Relationship, Password } = require('@keystonejs/fields');
+const { Text, Checkbox, Password } = require("@keystonejs/fields");
 
-const userIsAdmin = ({ authentication: { item: user } }) => Boolean(user && user.isAdmin);
+const userIsAdmin = ({ authentication: { item: user } }) =>
+  Boolean(user && user.isAdmin);
 const userOwnsItem = ({ authentication: { item: user } }) => {
-    if (!user) {
-        return false;
-    }
+  if (!user) {
+    return false;
+  }
 
-    return { id: user.id };
+  return { id: user.id };
 };
 
-const userIsAdminOrOwner = auth => {
+const userIsAdminOrOwner = (auth) => {
   const isAdmin = access.userIsAdmin(auth);
   const isOwner = access.userOwnsItem(auth);
   return isAdmin ? isAdmin : isOwner;
@@ -18,29 +19,29 @@ const userIsAdminOrOwner = auth => {
 const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
 
 module.exports = {
-    fields: {
-        name: { 
-            type: Text 
-        },
-        email: {
-            type: Text,
-            isUnique: true,
-        },
-        isAdmin: {
-            type: Checkbox,
-            access: {
-                update: access.userIsAdmin,
-            },
-        },
-        password: {
-            type: Password,
-        },
+  fields: {
+    name: {
+      type: Text,
     },
-    access: {
-        read: access.userIsAdminOrOwner,
-        update: access.userIsAdminOrOwner,
-        create: access.userIsAdmin,
-        delete: access.userIsAdmin,
-        auth: true,
+    email: {
+      type: Text,
+      isUnique: true,
     },
+    isAdmin: {
+      type: Checkbox,
+      access: {
+        update: access.userIsAdmin,
+      },
+    },
+    password: {
+      type: Password,
+    },
+  },
+  access: {
+    read: access.userIsAdminOrOwner,
+    update: access.userIsAdminOrOwner,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin,
+    auth: true,
+  },
 };

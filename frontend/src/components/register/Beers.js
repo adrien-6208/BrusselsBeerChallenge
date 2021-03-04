@@ -1,49 +1,51 @@
-import { useQuery, gql } from '@apollo/client';
-import Beer from './Beer';
+import { useQuery, gql } from "@apollo/client";
 
-function Beers(params) {
+export default function Beers(params) {
   const GET_BEERS = gql`
-    query GetBeers {
+    query GetBeers($language: String) {
       allBeers {
         id
-        name
         alcohol
         brewery {
           id
-          name
+          translation(where: { language: $language }) {
+            name
+          }
         }
         medal {
           id
+        }
+        translation(where: { language: $language }) {
           name
         }
       }
     }
   `;
 
-  const { loading, error, data } = useQuery(GET_BEERS);
+  const { loading, error, data } = useQuery(GET_BEERS, {
+    variables: { $language: "fr" },
+  }); // TODO : A CHANGER AVEC LA VARIABLE GLOBAL
 
   if (loading) return <p>Loading...</p>;
   if (error) return <pre>Error : {error.message}</pre>;
 
-  // TODO : cogiter au multilingue
-  // TODO : Ajouter les catégories de récompense
   // TODO : Ajouter le choix de trier par desc ou asc
-  
-  function filterByParams(beer, params){
-    if(params.idBrewery != 'all') {
-      if(beer.brewery.id != params.idBrewery) {
-        return false;
-      }
-    }
-    
-    if(params.idMedal != 'all') {
-      if(beer.medal.id != params.idMedal) {
+
+  function filterByParams(beer, params) {
+    if (params.idBrewery !== "all") {
+      if (beer.brewery.id !== params.idBrewery) {
         return false;
       }
     }
 
-    if(params.nameBeer != '') {
-      if(!beer.name.toLowerCase().includes(params.nameBeer)) {
+    if (params.idMedal !== "all") {
+      if (beer.medal.id !== params.idMedal) {
+        return false;
+      }
+    }
+
+    if (params.nameBeer !== "") {
+      if (!beer.translation[0].name.toLowerCase().includes(params.nameBeer)) {
         return false;
       }
     }
@@ -52,21 +54,32 @@ function Beers(params) {
   }
 
   function sortBy(a, b) {
-    if(a.name < b.name) {
+    if (a.name < b.name) {
       return -1;
     }
     return 1;
   }
 
-  const beers = data.allBeers.filter((beer) => filterByParams(beer, params)).sort(sortBy).map( (filteredBeer)=>( 
-    <Beer dataBeer={filteredBeer} />
-  ));
-
   return (
     <div className="row">
-      {beers}
+      {data.allBeers.filter((beer) => filterByParams(beer, params)).sort(sortBy).map((filteredBeer) => (
+          <div className="col-md-4 pb-2 pt-2" key={filteredBeer.id}>
+            <div className="card">
+              <a href={`/beer/${filteredBeer.id}`} className="stretched-link"> </a>
+              <div className="card-body">
+                <blockquote className="blockquote mb-0">
+                  <p>{filteredBeer.translation[0].name}</p>
+                  <footer className="blockquote-footer">
+                    {filteredBeer.alcohol}% -{" "}
+                    <cite title="Source Title">
+                      {filteredBeer.brewery.translation[0].name}
+                    </cite>
+                  </footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }
-
-export default Beers;

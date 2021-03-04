@@ -1,15 +1,16 @@
-const { Text, Relationship } = require('@keystonejs/fields');
+const { Text, Relationship } = require("@keystonejs/fields");
 
 module.exports = {
-    fields: {
-        name: {
-            type: Text,
-            isRequired: true,
-        },
-        beer: {
-            type: Relationship,
-            ref: 'Beer.medal',
-            many: true,
-        },
+  fields: {
+    beer: {
+      type: Relationship,
+      ref: "Beer.medal",
+      many: true,
     },
+    translation: {
+      type: Relationship,
+      ref: "MedalTranslation.medal",
+      many: true,
+    },
+  },
 };

@@ -1,22 +1,24 @@
 import { useQuery, gql } from '@apollo/client';
 
 const GET_MEDALS = gql`
-  query GetMedals {
+  query GetMedals($language : String) {
     allMedals {
       id
-      name
+      translation(where: {language: $language}) {
+        name
+      }
     }
   }
 `;
 
 const Medals = props => {
-  const { loading, error, data } = useQuery(GET_MEDALS);
+  const { loading, error, data } = useQuery(GET_MEDALS, {variables: {$language: 'fr'}}); // TODO : A CHANGER AVEC LA VARIABLE GLOBAL
 
   if (loading) return <p>Loading...</p>;
   if (error) return <pre>Error : {error.message}</pre>;
 
-  const medals = data.allMedals.map(({ name, id }) => (
-    <option key={id} value={id}>{name}</option>
+  const medals = data.allMedals.map((medal) => (
+    <option key={medal.id} value={medal.id}>{medal.translation[0].name}</option>
   ));
 
   return (
