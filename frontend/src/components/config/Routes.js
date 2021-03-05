@@ -5,6 +5,8 @@ import Home from "../home/index";
 import Register from "../register/index";
 import BeerPage from "../beer/index";
 import PageNotFound from "../layouts/404";
+import Result from "../results/index";
+import CategoryPage from "../results/Category";
 
 function Router() {
   return (
@@ -13,7 +15,9 @@ function Router() {
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route exact path="/register" render={(props) => <Register {...props} />} />
         <Route exact path="/beer/:id" render={(props) => <BeerPage {...props} />} />
-        <Route exact path="/404" component={PageNotFound} />
+        <Route exact path="/result" render={(props) => <Result {...props} />} />
+        <Route exact path="/result/:id" render={(props) => <CategoryPage {...props} />} />
+        <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   );

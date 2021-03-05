@@ -26,7 +26,7 @@ const Beer = (props) => {
 
   const { loading, error, data } = useQuery(GET_BEER, {
     variables: { id: props.match.params.id, language: "fr" },
-  }); // TODO : A CHANGER AVEC LA VARIABLE GLOBAL
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <pre>Error : {error.message}</pre>;

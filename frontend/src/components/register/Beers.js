@@ -24,12 +24,10 @@ export default function Beers(params) {
 
   const { loading, error, data } = useQuery(GET_BEERS, {
     variables: { $language: "fr" },
-  }); // TODO : A CHANGER AVEC LA VARIABLE GLOBAL
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <pre>Error : {error.message}</pre>;
-
-  // TODO : Ajouter le choix de trier par desc ou asc
 
   function filterByParams(beer, params) {
     if (params.idBrewery !== "all") {

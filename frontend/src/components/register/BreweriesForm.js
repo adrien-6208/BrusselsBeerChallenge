@@ -12,7 +12,7 @@ const GET_BREWERIES = gql`
 `;
 
 const Breweries = props => {
-  const { loading, error, data } = useQuery(GET_BREWERIES, {variables: {$language: 'fr'}}); // TODO : A CHANGER AVEC LA VARIABLE GLOBAL
+  const { loading, error, data } = useQuery(GET_BREWERIES, {variables: {$language: 'fr'}});
 
   if (loading) return <p>Loading...</p>;
   if (error) return <pre>Error : {error.message}</pre>;

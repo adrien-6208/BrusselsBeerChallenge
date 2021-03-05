@@ -8,7 +8,10 @@ function Header() {
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="/register">Registre</a>
+                <a className="nav-link" href="/register">Registre des bières</a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/result">Résultat</a>
               </li>
             </ul>
           </div>
